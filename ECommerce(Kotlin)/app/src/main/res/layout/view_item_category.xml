@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="130dp"
+        android:layout_height="90dp"
+        app:cardCornerRadius="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/ripple_white"
+        android:layout_margin="@dimen/margin_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <RelativeLayout
+            android:layout_margin="@dimen/margin_medium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_item_category_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/ic_person"
+                android:layout_alignParentStart="true"/>
+
+        <TextView
+                android:id="@+id/tv_item_category_name"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:singleLine="true"
+                android:textSize="@dimen/text_small"
+                android:scrollHorizontally="true"
+                android:layout_alignParentBottom="true"
+                android:text="This is a category"/>
+
+        <android.support.v7.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/ic_arrow_forward"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+        />
+    </RelativeLayout>
+</android.support.design.card.MaterialCardView>
