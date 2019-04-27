@@ -1,7 +1,7 @@
 package com.akkt.ecommerce.persistence.typeconverters
 
 import android.arch.persistence.room.TypeConverter
-import com.akkt.ecommerce.data.vos.CategoryListVO
+import com.akkt.ecommerce.data.vos.CategoryVO
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -11,14 +11,14 @@ import com.google.gson.reflect.TypeToken
 class CategoryListConverter {
 
     @TypeConverter
-    fun fromListToJson(categoryList: List<CategoryListVO>): String {
-        return Gson().toJson(categoryList)
+    fun fromListToJson(category: List<CategoryVO>): String {
+        return Gson().toJson(category)
     }
 
     @TypeConverter
-    fun fromJsonToList(jsonString: String): List<CategoryListVO> {
+    fun fromJsonToList(jsonString: String): List<CategoryVO> {
 
-        val listType = object : TypeToken<List<CategoryListVO>>() {}.type
+        val listType = object : TypeToken<List<CategoryVO>>() {}.type
 
         return Gson().fromJson(jsonString, listType)
     }

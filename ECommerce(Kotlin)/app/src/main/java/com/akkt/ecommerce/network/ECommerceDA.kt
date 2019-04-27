@@ -10,7 +10,6 @@ import com.akkt.ecommerce.network.responses.GetCategoryListResponse
 import com.akkt.ecommerce.network.responses.GetLoginUserResponse
 import com.akkt.ecommerce.network.responses.GetProductListResponse
 import com.akkt.ecommerce.network.responses.GetRegisterResponse
-import com.akkt.ecommerce.utils.CommonLogMessage
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -114,7 +113,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
                 val categoryListResponse = response.body()
 
                 if (categoryListResponse!!.isResponseSuccess()) {
-                    categoryDelegate.getCategoryList(categoryListResponse.categoryList!!)
+                    categoryDelegate.getCategoryList(categoryListResponse.category!!)
                 } else {
                     categoryDelegate.onFail("Can't get category list")
                 }

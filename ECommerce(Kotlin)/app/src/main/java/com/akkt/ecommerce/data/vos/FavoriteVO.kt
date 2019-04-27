@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName
 /**
  *Created by Aung Ko Ko Thet on 4/24/19
  */
-class BoughtListVO {
+class FavoriteVO {
 
     @SerializedName("product_id")
-    var productId: Int = 0
+    private var productId: Int = 0
 
     @SerializedName("product_name")
-    var productName: String? = null
-
-    @SerializedName("product_price")
-    var productPrice: String? = null
+    private var productName: String? = null
 
     @SerializedName("product_image_url")
-    var productImageUrl: String? = null
+    private var productImageUrls: List<ProductImageUrlVO>? = null
+
+    @SerializedName("product_price")
+    private var productPrce: String? = null
 }

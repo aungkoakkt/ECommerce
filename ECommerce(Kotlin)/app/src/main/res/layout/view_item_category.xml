@@ -18,14 +18,14 @@
             android:layout_height="match_parent">
 
         <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/iv_item_category_icon"
+                android:id="@+id/ivItemCategoryIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:srcCompat="@drawable/ic_person"
                 android:layout_alignParentStart="true"/>
 
         <TextView
-                android:id="@+id/tv_item_category_name"
+                android:id="@+id/tvItemCategoryName"
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:ellipsize="marquee"

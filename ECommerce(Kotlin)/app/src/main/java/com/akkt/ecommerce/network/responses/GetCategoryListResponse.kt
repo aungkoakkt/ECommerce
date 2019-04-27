@@ -1,6 +1,6 @@
 package com.akkt.ecommerce.network.responses
 
-import com.akkt.ecommerce.data.vos.CategoryListVO
+import com.akkt.ecommerce.data.vos.CategoryVO
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -16,6 +16,6 @@ class GetCategoryListResponse : BaseResponse() {
     var page: String? = null
 
     @SerializedName("categoryList")
-    var categoryList: List<CategoryListVO>? = null
+    var category: List<CategoryVO>? = null
 
 }

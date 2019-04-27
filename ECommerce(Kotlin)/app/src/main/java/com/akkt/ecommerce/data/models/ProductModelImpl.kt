@@ -1,11 +1,13 @@
 package com.akkt.ecommerce.data.models
 
 import android.content.Context
-import com.akkt.ecommerce.data.vos.CategoryListVO
+import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.CategoryDelegate
 import com.akkt.ecommerce.delegates.ProductDelegate
 import com.akkt.ecommerce.delegates.ProductDetailDelegate
+import com.akkt.ecommerce.persistence.entities.CategoryProduct
+import com.akkt.ecommerce.persistence.entities.History
 import java.lang.RuntimeException
 
 /**
@@ -33,8 +35,8 @@ class ProductModelImpl private constructor(context: Context) : BaseModel(context
     override fun getCategoryList(accessToken: String, page: Int, categoryDelegate: CategoryDelegate) {
 
         mDataAgent.loadCategoryList(accessToken, page, object : CategoryDelegate {
-            override fun getCategoryList(categoryList: List<CategoryListVO>) {
-                mDatabase.categoryDao().saveCategoryList(categoryList)
+            override fun getCategoryList(category: List<CategoryVO>) {
+                mDatabase.categoryDao().saveCategoryList(category)
                 val categoryListDB = mDatabase.categoryDao().retrieveCategoryList()
                 categoryDelegate.getCategoryList(categoryListDB)
             }
@@ -59,6 +61,20 @@ class ProductModelImpl private constructor(context: Context) : BaseModel(context
             override fun getProductList(productlist: List<ProductVO>) {
                 mDatabase.productDao().saveProductList(productlist)
                 val productListDB = mDatabase.productDao().retrieveProductList()
+
+                val ids = mutableListOf<CategoryProduct>()
+
+                for (product in productListDB) {
+
+                    for (category in product.category) {
+                        val categoryProduct =
+                            CategoryProduct(productId = product.productId, categoryId = category.categoryId)
+                        ids.add(categoryProduct)
+                    }
+
+                    mDatabase.productDao().saveCategoryAndProduct(ids)
+                    ids.clear()
+                }
                 productDelegate.getProductList(productListDB)
             }
 
@@ -74,9 +90,24 @@ class ProductModelImpl private constructor(context: Context) : BaseModel(context
         })
     }
 
+    override fun getProductListByCategoryId(categoryId: Int, productDelegate: ProductDelegate) {
+        val productList = mDatabase.categoryDao().getProductListByCategoryId(categoryId)
+
+        if (productList.isEmpty()) {
+            productDelegate.onFail("This is no product for that category.")
+        } else {
+            productDelegate.getProductList(productList)
+        }
+
+    }
+
     override fun getProductDetail(productId: Int, delegate: ProductDetailDelegate) {
 
         val product = mDatabase.productDao().retrieveProductById(productId)
         delegate.getProductDetail(product)
+    }
+
+    override fun addToHistory(productId: Int) {
+        mDatabase.historyDao().addHistory(History(productId = productId))
     }
 }

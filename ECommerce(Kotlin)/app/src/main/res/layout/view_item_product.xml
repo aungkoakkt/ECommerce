@@ -14,7 +14,7 @@
             android:layout_width="170dp"
             android:layout_height="200dp">
         <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/iv_item_product_icon"
+                android:id="@+id/ivItemProductIcon"
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -26,7 +26,7 @@
                 android:layout_alignParentBottom="true">
 
             <TextView
-                    android:id="@+id/tv_item_product_name"
+                    android:id="@+id/tvItemProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -36,7 +36,7 @@
                     android:textColor="@color/full_white"/>
 
             <TextView
-                    android:id="@+id/tv_item_product_price"
+                    android:id="@+id/tvItemProductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_small"
@@ -45,7 +45,7 @@
                     android:layout_alignParentBottom="true"/>
 
             <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/iv_item_product_favourite"
+                    android:id="@+id/ivItemProductFavourite"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginEnd="@dimen/margin_medium_2"

@@ -36,7 +36,7 @@
                     style="@style/TextInputLabel">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_login_phone"
+                        android:id="@+id/etActivityLoginPhone"
                         android:drawableStart="@drawable/ic_phone"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -53,7 +53,7 @@
                     style="@style/TextInputLabel">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_login_password"
+                        android:id="@+id/etActivityLoginPassword"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -73,7 +73,7 @@
                     android:padding="@dimen/margin_medium"
                     android:layout_gravity="end"/>
             <Button
-                    android:id="@+id/btn_activity_login"
+                    android:id="@+id/btnActivityLogin"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:textColor="@color/full_white"
@@ -95,7 +95,7 @@
             android:layout_marginStart="8dp" android:id="@+id/appCompatImageView"/>
 
     <TextView
-            android:id="@+id/tv_activity_login_register"
+            android:id="@+id/tvActivityLoginRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_medium"

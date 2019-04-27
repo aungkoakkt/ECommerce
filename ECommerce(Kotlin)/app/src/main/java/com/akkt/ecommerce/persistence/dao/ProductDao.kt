@@ -5,6 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.akkt.ecommerce.data.vos.ProductVO
+import com.akkt.ecommerce.persistence.entities.CategoryProduct
 
 /**
  *Created by Aung Ko Ko Thet on 4/26/19
@@ -23,4 +24,7 @@ interface ProductDao {
 
     @Query("select count(*) from product")
     fun getProductCount(): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveCategoryAndProduct(list: List<CategoryProduct>)
 }

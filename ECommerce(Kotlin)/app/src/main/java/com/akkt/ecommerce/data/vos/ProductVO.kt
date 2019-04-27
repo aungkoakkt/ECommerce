@@ -1,55 +1,52 @@
 package com.akkt.ecommerce.data.vos
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 import com.google.gson.annotations.SerializedName
 
 /**
  *Created by Aung Ko Ko Thet on 4/25/19
  */
-@Entity(tableName = "product")
-class ProductVO {
+@Entity(tableName = "product",indices = [Index("product_id")])
+data class ProductVO(
 
     @PrimaryKey
     @ColumnInfo(name = "product_id")
     @SerializedName("product_id")
-    var productId: Int = 0
+    val productId: Int,
 
     @ColumnInfo(name = "product_name")
     @SerializedName("product_name")
-    var productName: String? = null
+    val productName: String,
 
     @ColumnInfo(name = "product_image_url")
     @SerializedName("product_image_url")
-    var productImageUrl: List<ProductImageUrlVO>? = null
+    val productImageUrl: List<ProductImageUrlVO>,
 
     @ColumnInfo(name = "product_desc")
     @SerializedName("product_desc")
-    var productDesc: String? = null
+    val productDesc: String,
 
     @ColumnInfo(name = "product_price")
     @SerializedName("product_price")
-    var productPrice: String? = null
+    val productPrice: String,
 
     @ColumnInfo(name = "category")
     @SerializedName("category")
-    var category: List<CategoryListVO>? = null
+    val category: List<CategoryVO>,
 
     @ColumnInfo(name = "uploaded_time")
     @SerializedName("uploaded_time")
-    var uploadedTime: String? = null
+    val uploadedTime: String?,
 
     @ColumnInfo(name = "uploaded_date")
     @SerializedName("uploaded_date")
-    var uploadedDate: String? = null
+    val uploadedDate: String?,
 
     @ColumnInfo(name = "availability")
     @SerializedName("availability")
-    var availability: String? = null
+    val availability: String,
 
     @Embedded(prefix = "seller")
     @SerializedName("seller")
-    var seller: SellerVO? = null
-}
+    val seller: SellerVO
+)

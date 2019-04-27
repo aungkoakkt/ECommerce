@@ -12,8 +12,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activities.ProductDetailActivity"
-                  android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
+        <activity android:name=".activities.CategoryDetailActivity">
+        </activity>
+        <activity
+                android:name=".activities.ProductDetailActivity"
+                android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
         </activity>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
@@ -29,6 +32,9 @@
                 android:name=".activities.RegisterActivity"
                 android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
         </activity>
+        <activity
+                android:name=".activities.ProfileActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

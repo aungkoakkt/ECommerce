@@ -48,17 +48,17 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
                 (mDatePicker.datePicker.month + 1).toString() + "/" +
                 mDatePicker.datePicker.year.toString()
 
-        et_activity_register_date.setText(mBirthday)
+        etActivityRegisterDate.setText(mBirthday)
 
-        et_activity_register_date.setOnClickListener(this)
-        iv_activity_register_back.setOnClickListener { finish() }
+        etActivityRegisterDate.setOnClickListener(this)
+        ivActivityRegisterBack.setOnClickListener { finish() }
 
-        btn_activity_register.setOnClickListener {
-            mUserModel.register(et_activity_register_name.toString(),
-                et_activity_register_password.toString(),
-                et_activity_register_phone.toString(),
-                et_activity_register_date.toString(),
-                et_activity_register_location.toString(),this)
+        btnActivityRegister.setOnClickListener {
+            mUserModel.register(etActivityRegisterName.toString(),
+                etActivityRegisterPassword.toString(),
+                etActivityRegisterPhone.toString(),
+                etActivityRegisterDate.toString(),
+                etActivityRegisterLocation.toString(),this)
         }
 
     }
@@ -67,13 +67,13 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
 
         mBirthday = dayOfMonth.toString() + "/" + (month + 1).toString() + "/" + year.toString()
 
-        et_activity_register_date.setText(mBirthday)
+        etActivityRegisterDate.setText(mBirthday)
 
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.et_activity_register_date -> mDatePicker.show()
+            R.id.etActivityRegisterDate -> mDatePicker.show()
         }
     }
 

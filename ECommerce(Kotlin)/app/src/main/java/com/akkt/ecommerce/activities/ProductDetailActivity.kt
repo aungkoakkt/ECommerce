@@ -32,19 +32,20 @@ class ProductDetailActivity : AppCompatActivity(), ProductDetailDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
-        tv_activity_product_detail_description.movementMethod = ScrollingMovementMethod()
+        tvActivityProductDetailDescription.movementMethod = ScrollingMovementMethod()
         val intent = intent
         val productId = intent.getIntExtra("product_id", 0)
         mProductModel.getProductDetail(productId, this)
+        mProductModel.addToHistory(productId)
 
-        iv_activity_product_detail_back.setOnClickListener { finish() }
+        ivActivityProductDetailBack.setOnClickListener { finish() }
     }
 
     override fun getProductDetail(product: ProductVO) {
-        Glide.with(this).load(product.productImageUrl!!.get(0).image_url).into(iv_activity_product_detail_image)
-        tv_activity_product_detail_name.text = product.productName
-        tv_activity_product_detail_price.text = product.productPrice
-        tv_activity_product_detail_description.text = product.productDesc
-        tv_activity_product_detail_seller.text = product.seller!!.name
+        Glide.with(this).load(product.productImageUrl[0].image_url).into(ivActivityProductDetailImage)
+        tvActivityProductDetailName.text = product.productName
+        tvActivityProductDetailPrice.text = product.productPrice
+        tvActivityProductDetailDescription.text = product.productDesc
+        tvActivityProductDetailSeller.text = product.seller.name
     }
 }

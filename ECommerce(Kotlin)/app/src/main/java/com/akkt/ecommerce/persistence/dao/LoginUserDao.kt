@@ -17,4 +17,7 @@ interface LoginUserDao {
 
     @Query("select count(*) from login_user")
     fun getUserCount(): Int
+
+    @Query("select * from login_user")
+    fun getUserInformation(): LoginUserVO
 }

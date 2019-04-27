@@ -35,7 +35,7 @@
                     style="@style/TextInputLabelRegister">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_register_name"
+                        android:id="@+id/etActivityRegisterName"
                         android:drawableStart="@drawable/ic_edit"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -52,7 +52,7 @@
                     style="@style/TextInputLabelRegister">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_register_phone"
+                        android:id="@+id/etActivityRegisterPhone"
                         android:drawableStart="@drawable/ic_phone"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -69,7 +69,7 @@
                     style="@style/TextInputLabelRegister">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_register_password"
+                        android:id="@+id/etActivityRegisterPassword"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -86,7 +86,7 @@
                     style="@style/TextInputLabelRegister">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_register_date"
+                        android:id="@+id/etActivityRegisterDate"
                         android:drawableStart="@drawable/ic_date_range"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -104,7 +104,7 @@
                     style="@style/TextInputLabelRegister">
 
                 <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_activity_register_location"
+                        android:id="@+id/etActivityRegisterLocation"
                         android:drawableStart="@drawable/ic_place"
                         android:drawablePadding="@dimen/margin_medium"
                         android:maxLines="1"
@@ -115,7 +115,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                    android:id="@+id/btn_activity_register"
+                    android:id="@+id/btnActivityRegister"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
                     android:layout_gravity="end"
@@ -128,7 +128,7 @@
     </android.support.design.card.MaterialCardView>
 
     <ImageView
-            android:id="@+id/iv_activity_register_back"
+            android:id="@+id/ivActivityRegisterBack"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:padding="@dimen/margin_medium"

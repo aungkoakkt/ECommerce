@@ -12,14 +12,14 @@ class GetLoginUserResponse : BaseResponse() {
     var loginUser: LoginUserVO? = null
 
     @SerializedName("favorite_list")
-    var favouriteList: List<FavoriteListVO>? = null
+    var favourite: List<FavoriteVO>? = null
 
     @SerializedName("selling_list")
-    var sellingList: List<SellingListVO>? = null
+    var selling: List<SellingVO>? = null
 
     @SerializedName("sold_list")
-    var soldList: List<SoldListVO>? = null
+    var sold: List<SoldVO>? = null
 
     @SerializedName("bought_list")
-    var boughtLsit: List<BoughtListVO>? = null
+    var boughtLsit: List<BoughtVO>? = null
 }

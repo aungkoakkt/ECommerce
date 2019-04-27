@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/ivActivityProfileCover"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/ivActivityProfile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivActivityProfileCover"
+            app:layout_constraintTop_toBottomOf="@+id/ivActivityProfileCover"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:id="@+id/tvActivityProfileName"
+            android:text="Name - Aung Ko Ko Thet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/ivActivityProfile"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginStart="16dp"/>
+    <TextView
+            android:text="Address - Tamwe , Yangon, Myanmar "
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvActivityProfileAddress" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityProfileName"/>
+    <TextView
+            android:text="Your Wallet"
+            android:textSize="@dimen/text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvActivityProfileAddress"/>
+    <TextView
+            android:text="450000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvActivityProfileWallet"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/text_heading_1x"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"/>
+
+    <Button
+            android:text="Logout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnActivityProfileLogout"
+            style="@style/ButtonStyle1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+    />
+
+
+</android.support.constraint.ConstraintLayout>

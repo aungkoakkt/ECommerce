@@ -40,10 +40,10 @@ class LoginActivity : AppCompatActivity(), LoginDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        tv_activity_login_register.setOnClickListener { startActivity(RegisterActivity.newIntent(this)) }
+        tvActivityLoginRegister.setOnClickListener { startActivity(RegisterActivity.newIntent(this)) }
 
-        btn_activity_login.setOnClickListener {
-            mUserModel.login(et_activity_login_phone.toString(), et_activity_login_password.toString(), this)
+        btnActivityLogin.setOnClickListener {
+            mUserModel.login(etActivityLoginPhone.toString(), etActivityLoginPassword.toString(), this)
         }
     }
 }

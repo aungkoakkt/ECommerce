@@ -12,6 +12,22 @@ import com.akkt.ecommerce.delegates.RegisterDelegate
  */
 class UserModelImpl private constructor(context: Context) : BaseModel(context),UserModel {
 
+    companion object {
+        private var INSTANCE: UserModelImpl? = null
+        fun getInstance(): UserModelImpl {
+            if (INSTANCE == null) {
+                throw RuntimeException("UserModel is being invoked before initializing.")
+            }
+
+            val i = INSTANCE
+            return i!!
+        }
+
+        fun initUserModel(context : Context) {
+            INSTANCE = UserModelImpl(context)
+        }
+    }
+
     override fun register(
         name: String,
         password: String,
@@ -57,20 +73,11 @@ class UserModelImpl private constructor(context: Context) : BaseModel(context),U
         })
     }
 
-    companion object {
-        private var INSTANCE: UserModelImpl? = null
-        fun getInstance(): UserModelImpl {
-            if (INSTANCE == null) {
-                throw RuntimeException("UserModel is being invoked before initializing.")
-            }
+    override fun getUserInformation(): LoginUserVO {
 
-            val i = INSTANCE
-            return i!!
-        }
+        val loginUser=mDatabase.loginUserDao().getUserInformation()
 
-        fun initUserModel(context : Context) {
-            INSTANCE = UserModelImpl(context)
-        }
+        return loginUser
     }
 
 }
