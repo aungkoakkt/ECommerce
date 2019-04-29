@@ -10,6 +10,7 @@ import com.akkt.ecommerce.network.responses.GetCategoryListResponse
 import com.akkt.ecommerce.network.responses.GetLoginUserResponse
 import com.akkt.ecommerce.network.responses.GetProductListResponse
 import com.akkt.ecommerce.network.responses.GetRegisterResponse
+import com.akkt.ecommerce.utils.Constants
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -33,7 +34,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
             .readTimeout(60, TimeUnit.SECONDS)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://padcmyanmar.com/padc-3/final-projects/e-commerce/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(Gson()))
             .client(okHttpClient)
             .build()
@@ -58,7 +59,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
         netApi.login(phone, password).enqueue(object : Callback<GetLoginUserResponse> {
 
             override fun onFailure(call: Call<GetLoginUserResponse>, t: Throwable) {
-                loginDelegate.onFail(t.message)
+                loginDelegate.onFail(t.message!!)
                 Log.e(EcommerceApp.TAG, t.message)
             }
 
@@ -66,7 +67,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
                 val loginUserResponse = response.body()
 
                 if (loginUserResponse!!.isResponseSuccess()) {
-                    loginDelegate.onSuccess(loginUserResponse.loginUser)
+                    loginDelegate.onSuccess(loginUserResponse)
                 } else {
                     loginDelegate.onFail("Login Response is fail")
                 }
@@ -86,7 +87,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
         netApi.register(phone, name, password, dateOfBirth, location).enqueue(object : Callback<GetRegisterResponse> {
 
             override fun onFailure(call: Call<GetRegisterResponse>, t: Throwable) {
-                registerDelegate.onFail(t.message)
+                registerDelegate.onFail(t.message!!)
             }
 
             override fun onResponse(call: Call<GetRegisterResponse>, response: Response<GetRegisterResponse>) {
@@ -105,7 +106,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
     override fun loadCategoryList(accessToken: String, page: Int, categoryDelegate: CategoryDelegate) {
         netApi.loadCategoryList(accessToken, page).enqueue(object : Callback<GetCategoryListResponse> {
             override fun onFailure(call: Call<GetCategoryListResponse>, t: Throwable) {
-                categoryDelegate.onFail(t.message)
+                categoryDelegate.onFail(t.message!!)
             }
 
             override fun onResponse(call: Call<GetCategoryListResponse>, response: Response<GetCategoryListResponse>) {
@@ -125,7 +126,7 @@ class ECommerceDA private constructor() : ECommerceDataAgent {
     override fun loadProductList(accessToken: String, page: Int, productDelegate: ProductDelegate) {
         netApi.loadProductList(accessToken, page).enqueue(object : Callback<GetProductListResponse> {
             override fun onFailure(call: Call<GetProductListResponse>, t: Throwable) {
-                productDelegate.onFail(t.message)
+                productDelegate.onFail(t.message!!)
             }
 
             override fun onResponse(call: Call<GetProductListResponse>, response: Response<GetProductListResponse>) {

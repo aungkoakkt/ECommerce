@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+            android:id="@+id/menuFavourite"
+            android:icon="@drawable/ic_favorite"
+            android:title="Favourite"
+            app:showAsAction="always"/>
+
+    <item
             android:id="@+id/menuProfile"
             android:icon="@drawable/ic_person_white"
             android:title="Profile"

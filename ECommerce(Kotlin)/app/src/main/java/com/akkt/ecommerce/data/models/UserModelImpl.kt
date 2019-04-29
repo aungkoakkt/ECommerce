@@ -1,32 +1,15 @@
 package com.akkt.ecommerce.data.models
 
-import android.content.Context
-import android.util.Log
-import com.akkt.ecommerce.EcommerceApp
 import com.akkt.ecommerce.data.vos.LoginUserVO
 import com.akkt.ecommerce.delegates.LoginDelegate
 import com.akkt.ecommerce.delegates.RegisterDelegate
+import com.akkt.ecommerce.network.responses.GetLoginUserResponse
+import com.akkt.ecommerce.utils.CommonLogMessage
 
 /**
  *Created by Aung Ko Ko Thet on 4/25/19
  */
-class UserModelImpl private constructor(context: Context) : BaseModel(context),UserModel {
-
-    companion object {
-        private var INSTANCE: UserModelImpl? = null
-        fun getInstance(): UserModelImpl {
-            if (INSTANCE == null) {
-                throw RuntimeException("UserModel is being invoked before initializing.")
-            }
-
-            val i = INSTANCE
-            return i!!
-        }
-
-        fun initUserModel(context : Context) {
-            INSTANCE = UserModelImpl(context)
-        }
-    }
+object UserModelImpl : BaseModel(), UserModel {
 
     override fun register(
         name: String,
@@ -36,13 +19,13 @@ class UserModelImpl private constructor(context: Context) : BaseModel(context),U
         location: String,
         registerDelegate: RegisterDelegate
     ) {
-        mDataAgent.register(name,password,phone,dateOfBirth,location, object : RegisterDelegate {
+        mDataAgent.register(name, password, phone, dateOfBirth, location, object : RegisterDelegate {
 
             override fun success(message: String) {
                 registerDelegate.success(message)
             }
 
-            override fun onFail(message: String?) {
+            override fun onFail(message: String) {
                 registerDelegate.onFail(message)
             }
         })
@@ -54,19 +37,17 @@ class UserModelImpl private constructor(context: Context) : BaseModel(context),U
 
     override fun login(phone: String, password: String, loginDelegate: LoginDelegate) {
 
-        mDataAgent.login(phone,password,object :LoginDelegate{
+        mDataAgent.login(phone, password, object : LoginDelegate {
 
-            override fun onSuccess(loginUser: LoginUserVO?) {
-                if (loginUser!=null){
-                    mDatabase.loginUserDao().saveLoginUser(loginUser)
-                    loginDelegate.onSuccess(loginUser)
+            override fun onSuccess(loginUser: GetLoginUserResponse) {
+                mDatabase.loginUserDao().saveLoginUser(loginUser.loginUser)
+                mDatabase.favouriteDao().addFavouriteList(loginUser.favouriteList)
+                CommonLogMessage.debugMessage(loginUser.favouriteList.size.toString())
+                loginDelegate.onSuccess(loginUser)
 
-                }else{
-                    Log.e(EcommerceApp.TAG,"Insert fail Login User")
-                }
             }
 
-            override fun onFail(message: String?) {
+            override fun onFail(message: String) {
                 loginDelegate.onFail(message)
             }
 
@@ -75,7 +56,7 @@ class UserModelImpl private constructor(context: Context) : BaseModel(context),U
 
     override fun getUserInformation(): LoginUserVO {
 
-        val loginUser=mDatabase.loginUserDao().getUserInformation()
+        val loginUser = mDatabase.loginUserDao().getUserInformation()
 
         return loginUser
     }

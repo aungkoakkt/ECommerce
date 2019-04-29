@@ -3,6 +3,7 @@ package com.akkt.ecommerce.persistence.entities
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.Index
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
 
@@ -11,6 +12,7 @@ import com.akkt.ecommerce.data.vos.ProductVO
  */
 @Entity(
     tableName = "category_product",
+    indices = [Index("product_id"), Index("category_id")],
     primaryKeys = ["product_id", "category_id"],
     foreignKeys = [
         ForeignKey(

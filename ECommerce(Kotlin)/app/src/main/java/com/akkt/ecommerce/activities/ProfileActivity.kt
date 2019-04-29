@@ -20,7 +20,7 @@ class ProfileActivity : AppCompatActivity() {
     private val mUserModel: UserModel
 
     init {
-        mUserModel = UserModelImpl.getInstance()
+        mUserModel = UserModelImpl
     }
 
     companion object {

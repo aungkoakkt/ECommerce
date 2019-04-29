@@ -13,10 +13,7 @@ import android.widget.Toast
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.adapters.CategoryRecyclerAdapter
 import com.akkt.ecommerce.adapters.ProductRecyclerAdapter
-import com.akkt.ecommerce.data.models.ProductModel
-import com.akkt.ecommerce.data.models.ProductModelImpl
-import com.akkt.ecommerce.data.models.UserModel
-import com.akkt.ecommerce.data.models.UserModelImpl
+import com.akkt.ecommerce.data.models.*
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.CategoryDelegate
@@ -26,17 +23,19 @@ import com.akkt.ecommerce.delegates.ProductItemDelegate
 import com.akkt.ecommerce.network.ECommerceDataAgent
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ProductItemDelegate,CategoryItemDelegate {
+class MainActivity : AppCompatActivity(), ProductItemDelegate, CategoryItemDelegate {
 
     private val mUserModel: UserModel
     private val mProductModel: ProductModel
+    private val mFavoriteModel: FavoriteModel
 
     private val mCategoryAdapter: CategoryRecyclerAdapter
     private val mProductAdapter: ProductRecyclerAdapter
 
     init {
-        mUserModel = UserModelImpl.getInstance()
-        mProductModel = ProductModelImpl.getInsatnce()
+        mUserModel = UserModelImpl
+        mProductModel = ProductModelImpl
+        mFavoriteModel = FavoriteModelImpl
         mCategoryAdapter = CategoryRecyclerAdapter(this)
         mProductAdapter = ProductRecyclerAdapter(this)
     }
@@ -64,14 +63,14 @@ class MainActivity : AppCompatActivity(), ProductItemDelegate,CategoryItemDelega
                     mCategoryAdapter.setNewData(category as MutableList<CategoryVO>)
                 }
 
-                override fun onFail(message: String?) {
+                override fun onFail(message: String) {
                     Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
                 }
 
             })
 
             mProductModel.getProductList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : ProductDelegate {
-                override fun onFail(message: String?) {
+                override fun onFail(message: String) {
                     Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
                 }
 
@@ -92,10 +91,19 @@ class MainActivity : AppCompatActivity(), ProductItemDelegate,CategoryItemDelega
         startActivity(intent)
     }
 
+    override fun onTapFavorite(product: ProductVO) {
+        val id=mFavoriteModel.addToFavorite(product)
+        if (id>0){
+            Toast.makeText(this,"Added to favorite list",Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(this,"Already added.",Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onTapCategoryItem(category: CategoryVO) {
-        val intent=CategoryDetailActivity.newIntent(this)
-        intent.putExtra("id",category.categoryId)
-        intent.putExtra("name",category.categoryName)
+        val intent = CategoryDetailActivity.newIntent(this)
+        intent.putExtra("id", category.categoryId)
+        intent.putExtra("name", category.categoryName)
         startActivity(intent)
     }
 
@@ -108,6 +116,7 @@ class MainActivity : AppCompatActivity(), ProductItemDelegate,CategoryItemDelega
 
         when (item!!.itemId) {
             R.id.menuProfile -> startActivity(ProfileActivity.newIntent(this))
+            R.id.menuFavourite -> startActivity(FavoriteActivity.newIntent(this))
         }
         return super.onOptionsItemSelected(item)
     }

@@ -8,4 +8,5 @@ import com.akkt.ecommerce.data.vos.ProductVO
 interface ProductItemDelegate {
 
     fun onTapProduct(product: ProductVO)
+    fun onTapFavorite(product: ProductVO)
 }

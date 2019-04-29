@@ -12,10 +12,13 @@ import kotlinx.android.synthetic.main.view_item_product.view.*
 class ProductViewHolder(itemView: View, private val delegate: ProductItemDelegate) :BaseViewHolder<ProductVO>(itemView) {
 
     override fun setData(data: ProductVO) {
-        Glide.with(itemView.context).load(data.productImageUrl?.get(0)?.image_url).into(itemView.ivItemProductIcon)
+        Glide.with(itemView.context).load(data.productImageUrl[0].image_url).into(itemView.ivItemProductIcon)
         itemView.tvItemProductName.text=data.productName
         itemView.tvItemProductPrice.text=data.productPrice
 
         itemView.setOnClickListener {  delegate.onTapProduct(data)}
+
+        itemView.ivItemProductFavourite.setOnClickListener{delegate.onTapFavorite(data)}
+
     }
 }

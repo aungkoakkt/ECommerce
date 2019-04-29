@@ -8,9 +8,13 @@ import com.akkt.ecommerce.persistence.EcommerceDatabase
 /**
  *Created by Aung Ko Ko Thet on 4/25/19
  */
-abstract class BaseModel(context: Context) {
+abstract class BaseModel {
 
-    var mDataAgent: ECommerceDataAgent = ECommerceDA.getInstance()
-    var mDatabase: EcommerceDatabase = EcommerceDatabase.getDatabase(context)
+    val mDataAgent: ECommerceDataAgent = ECommerceDA.getInstance()
+    lateinit var mDatabase: EcommerceDatabase
+
+    fun initDB(context : Context) {
+        mDatabase = EcommerceDatabase.getDatabase(context)
+    }
 
 }

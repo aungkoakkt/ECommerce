@@ -6,11 +6,11 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import com.akkt.ecommerce.data.vos.CategoryVO
+import com.akkt.ecommerce.data.vos.FavoriteVO
 import com.akkt.ecommerce.data.vos.LoginUserVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.persistence.dao.*
 import com.akkt.ecommerce.persistence.entities.CategoryProduct
-import com.akkt.ecommerce.persistence.entities.FavouriteProduct
 import com.akkt.ecommerce.persistence.entities.History
 import com.akkt.ecommerce.persistence.typeconverters.CategoryListConverter
 import com.akkt.ecommerce.persistence.typeconverters.ProductImageUrlListConverter
@@ -24,7 +24,7 @@ import com.akkt.ecommerce.persistence.typeconverters.ProductImageUrlListConverte
         ProductVO::class,
         CategoryVO::class,
         CategoryProduct::class,
-        FavouriteProduct::class,
+        FavoriteVO::class,
         History::class
     ), version = 3, exportSchema = false
 )

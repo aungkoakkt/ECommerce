@@ -18,7 +18,7 @@ class ProductDetailActivity : AppCompatActivity(), ProductDetailDelegate {
     private val mProductModel: ProductModel
 
     init {
-        mProductModel = ProductModelImpl.getInsatnce()
+        mProductModel = ProductModelImpl
     }
 
     companion object {

@@ -6,20 +6,21 @@ import com.google.gson.annotations.SerializedName
 /**
  *Created by Aung Ko Ko Thet on 4/24/19
  */
-class GetLoginUserResponse : BaseResponse() {
+data class GetLoginUserResponse(
 
     @SerializedName("login_user")
-    var loginUser: LoginUserVO? = null
+    val loginUser: LoginUserVO,
 
     @SerializedName("favorite_list")
-    var favourite: List<FavoriteVO>? = null
+    val favouriteList: List<FavoriteVO>,
 
     @SerializedName("selling_list")
-    var selling: List<SellingVO>? = null
+    val sellingList: List<SellingVO>,
 
     @SerializedName("sold_list")
-    var sold: List<SoldVO>? = null
+    val soldList: List<SoldVO>,
 
     @SerializedName("bought_list")
-    var boughtLsit: List<BoughtVO>? = null
-}
+    val boughtList: List<BoughtVO>
+
+) : BaseResponse()

@@ -10,6 +10,7 @@ import com.akkt.ecommerce.data.models.UserModel
 import com.akkt.ecommerce.data.models.UserModelImpl
 import com.akkt.ecommerce.data.vos.LoginUserVO
 import com.akkt.ecommerce.delegates.LoginDelegate
+import com.akkt.ecommerce.network.responses.GetLoginUserResponse
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), LoginDelegate {
@@ -17,7 +18,7 @@ class LoginActivity : AppCompatActivity(), LoginDelegate {
     private val mUserModel: UserModel
 
     init {
-        mUserModel = UserModelImpl.getInstance()
+        mUserModel = UserModelImpl
     }
 
     companion object {
@@ -27,12 +28,12 @@ class LoginActivity : AppCompatActivity(), LoginDelegate {
         }
     }
 
-    override fun onSuccess(loginUser: LoginUserVO?) {
+    override fun onSuccess(loginUser: GetLoginUserResponse) {
         startActivity(MainActivity.newIntent(this))
         finish()
     }
 
-    override fun onFail(message: String?) {
+    override fun onFail(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

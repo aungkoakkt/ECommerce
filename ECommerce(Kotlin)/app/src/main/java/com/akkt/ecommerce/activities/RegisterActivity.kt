@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
     private val mUserModel: UserModel
 
     init {
-        mUserModel = UserModelImpl.getInstance()
+        mUserModel = UserModelImpl
     }
 
     companion object {
@@ -82,7 +82,7 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
         finish()
     }
 
-    override fun onFail(message: String?) {
+    override fun onFail(message: String) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 }

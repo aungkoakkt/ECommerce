@@ -5,5 +5,5 @@ package com.akkt.ecommerce.delegates
  */
 interface BaseNetworkDelegate {
 
-    fun onFail(message: String?)
+    fun onFail(message: String)
 }

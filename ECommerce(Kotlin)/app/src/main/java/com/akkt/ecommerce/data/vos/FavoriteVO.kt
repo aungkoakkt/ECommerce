@@ -1,21 +1,32 @@
 package com.akkt.ecommerce.data.vos
 
+import android.arch.persistence.room.*
 import com.google.gson.annotations.SerializedName
 
 /**
  *Created by Aung Ko Ko Thet on 4/24/19
  */
-class FavoriteVO {
+@Entity(tableName = "favorite",
+    indices = [Index("product_id",unique = true)])
+data class FavoriteVO(
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "favorite_pk")
+    var favoritePk: Int?=null,
+
+    @ColumnInfo(name = "product_id")
     @SerializedName("product_id")
-    private var productId: Int = 0
+    val productId: Int,
 
+    @ColumnInfo(name = "product_name")
     @SerializedName("product_name")
-    private var productName: String? = null
+    val productName: String,
 
+    @ColumnInfo(name = "product_image_url")
     @SerializedName("product_image_url")
-    private var productImageUrls: List<ProductImageUrlVO>? = null
+    val productImageUrls: List<ProductImageUrlVO>,
 
+    @ColumnInfo(name = "product_price")
     @SerializedName("product_price")
-    private var productPrce: String? = null
-}
+    val productPrice: String
+)

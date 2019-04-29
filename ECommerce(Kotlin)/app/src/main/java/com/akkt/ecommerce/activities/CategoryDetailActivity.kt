@@ -23,7 +23,7 @@ class CategoryDetailActivity : AppCompatActivity(),ProductDelegate,ProductItemDe
     private val mAdapter: ProductRecyclerAdapter
 
     init {
-        mProductModel = ProductModelImpl.getInsatnce()
+        mProductModel=ProductModelImpl
         mAdapter= ProductRecyclerAdapter(this)
     }
 
@@ -54,7 +54,7 @@ class CategoryDetailActivity : AppCompatActivity(),ProductDelegate,ProductItemDe
         mAdapter.setNewData(productlist as MutableList<ProductVO>)
     }
 
-    override fun onFail(message: String?) {
+    override fun onFail(message: String) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 
@@ -62,5 +62,9 @@ class CategoryDetailActivity : AppCompatActivity(),ProductDelegate,ProductItemDe
         val intent = ProductDetailActivity.newIntent(this)
         intent.putExtra("product_id", product.productId)
         startActivity(intent)
+    }
+
+    override fun onTapFavorite(product: ProductVO) {
+
     }
 }

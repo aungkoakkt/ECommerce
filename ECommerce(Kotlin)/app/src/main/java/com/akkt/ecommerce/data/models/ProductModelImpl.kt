@@ -1,6 +1,5 @@
 package com.akkt.ecommerce.data.models
 
-import android.content.Context
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.CategoryDelegate
@@ -8,29 +7,11 @@ import com.akkt.ecommerce.delegates.ProductDelegate
 import com.akkt.ecommerce.delegates.ProductDetailDelegate
 import com.akkt.ecommerce.persistence.entities.CategoryProduct
 import com.akkt.ecommerce.persistence.entities.History
-import java.lang.RuntimeException
 
 /**
  *Created by Aung Ko Ko Thet on 4/26/19
  */
-class ProductModelImpl private constructor(context: Context) : BaseModel(context), ProductModel {
-
-    companion object {
-        private var INSTANCE: ProductModelImpl? = null
-
-        fun getInsatnce(): ProductModelImpl {
-            if (INSTANCE == null) {
-                throw RuntimeException("ProductModelImpl must be initialized before using it.")
-            }
-
-            return INSTANCE!!
-        }
-
-        fun initCategoryModelImpl(context: Context) {
-            INSTANCE = ProductModelImpl(context)
-        }
-
-    }
+object ProductModelImpl : BaseModel(), ProductModel {
 
     override fun getCategoryList(accessToken: String, page: Int, categoryDelegate: CategoryDelegate) {
 
@@ -41,7 +22,7 @@ class ProductModelImpl private constructor(context: Context) : BaseModel(context
                 categoryDelegate.getCategoryList(categoryListDB)
             }
 
-            override fun onFail(message: String?) {
+            override fun onFail(message: String) {
 
                 if (mDatabase.isCategoryAvailable()) {
                     val categoryListDB = mDatabase.categoryDao().retrieveCategoryList()
@@ -78,7 +59,7 @@ class ProductModelImpl private constructor(context: Context) : BaseModel(context
                 productDelegate.getProductList(productListDB)
             }
 
-            override fun onFail(message: String?) {
+            override fun onFail(message: String) {
                 if (mDatabase.isProductAvailable()) {
                     val productListDB = mDatabase.productDao().retrieveProductList()
                     productDelegate.getProductList(productListDB)

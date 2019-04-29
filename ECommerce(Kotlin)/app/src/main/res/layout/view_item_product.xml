@@ -11,8 +11,8 @@
         app:cardCornerRadius="@dimen/margin_medium">
 
     <RelativeLayout
-            android:layout_width="170dp"
-            android:layout_height="200dp">
+            android:layout_width="155dp"
+            android:layout_height="190dp">
         <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/ivItemProductIcon"
                 android:scaleType="fitXY"
@@ -46,10 +46,9 @@
 
             <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/ivItemProductFavourite"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginEnd="@dimen/margin_medium_2"
-                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="@dimen/margin_medium"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     app:srcCompat="@drawable/ic_favorite"/>
