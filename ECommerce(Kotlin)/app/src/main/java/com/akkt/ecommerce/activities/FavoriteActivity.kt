@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.widget.Toast
 import com.akkt.ecommerce.R
+import com.akkt.ecommerce.adapters.FavoriteRecyclerAdapter
 import com.akkt.ecommerce.adapters.ProductRecyclerAdapter
 import com.akkt.ecommerce.data.models.FavoriteModel
 import com.akkt.ecommerce.data.models.FavoriteModelImpl
@@ -18,12 +20,12 @@ import kotlinx.android.synthetic.main.activity_favorite.*
 
 class FavoriteActivity : AppCompatActivity(), ProductItemDelegate {
 
-    private val mProductAdapter: ProductRecyclerAdapter
+    private val mFavoriteAdapter: FavoriteRecyclerAdapter
     private val mFavoriteModel: FavoriteModel
 
     init {
         mFavoriteModel = FavoriteModelImpl
-        mProductAdapter = ProductRecyclerAdapter(this)
+        mFavoriteAdapter = FavoriteRecyclerAdapter(this)
     }
 
     companion object {
@@ -37,14 +39,14 @@ class FavoriteActivity : AppCompatActivity(), ProductItemDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite)
 
-        rvActivityFavorite.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
+        rvActivityFavorite.layoutManager=StaggeredGridLayoutManager(2,RecyclerView.VERTICAL)
 
-        rvActivityFavorite.adapter = mProductAdapter
+        rvActivityFavorite.adapter = mFavoriteAdapter
 
         mFavoriteModel.getFavoriteProduct(object : FavoriteDelegate {
 
             override fun onSuccesGettingFavoriteProduct(productList: List<ProductVO>) {
-                mProductAdapter.setNewData(productList as MutableList<ProductVO>)
+                mFavoriteAdapter.setNewData(productList as MutableList<ProductVO>)
             }
 
             override fun onFailGettingFavoriteProduct(message: String) {

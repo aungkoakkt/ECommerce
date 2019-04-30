@@ -12,7 +12,7 @@ import com.akkt.ecommerce.view.holders.CategoryViewHolder
  */
 class CategoryRecyclerAdapter(private val delegate: CategoryItemDelegate) :BaseRecyclerAdapter<CategoryViewHolder,CategoryVO>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, position: Int): CategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
 
         val itemView=LayoutInflater.from(parent.context).inflate(R.layout.view_item_category,parent,false)
         return CategoryViewHolder(itemView,delegate)

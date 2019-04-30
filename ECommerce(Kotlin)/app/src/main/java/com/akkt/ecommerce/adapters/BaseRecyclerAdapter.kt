@@ -11,7 +11,7 @@ abstract class BaseRecyclerAdapter<R : BaseViewHolder<D>, D> : RecyclerView.Adap
     private var mDataList: MutableList<D> = ArrayList()
 
     override fun onBindViewHolder(viewHolder: R, position: Int) {
-        viewHolder.setData(mDataList.get(position))
+        viewHolder.setData(mDataList[position])
     }
 
     override fun getItemCount(): Int {
@@ -24,22 +24,22 @@ abstract class BaseRecyclerAdapter<R : BaseViewHolder<D>, D> : RecyclerView.Adap
     }
 
     fun appendNewData(newData: List<D>) {
-        mDataList!!.addAll(newData)
+        mDataList.addAll(newData)
         notifyDataSetChanged()
     }
 
     fun getItemAt(position: Int): D? {
-        return if (position < mDataList!!.size - 1) mDataList!![position] else null
+        return if (position < mDataList.size - 1) mDataList[position] else null
 
     }
 
     fun removeData(data: D) {
-        mDataList!!.remove(data)
+        mDataList.remove(data)
         notifyDataSetChanged()
     }
 
     fun addNewData(data: D) {
-        mDataList!!.add(data)
+        mDataList.add(data)
         notifyDataSetChanged()
     }
 

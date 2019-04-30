@@ -16,7 +16,7 @@ interface FavouriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addFavouriteList(favourite: List<FavoriteVO>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addFavoriteProduct(favorite: FavoriteVO): Long
 
     @Query("select b.* from favorite as a inner join product as b on a.product_id=b.product_id")
