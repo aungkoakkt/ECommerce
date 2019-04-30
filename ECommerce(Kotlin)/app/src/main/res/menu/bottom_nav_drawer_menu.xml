@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="none">
+        <item
+                android:id="@+id/nav1"
+                android:icon="@android:drawable/ic_dialog_email"
+                android:title="Email"
+        />
+        <item
+                android:id="@+id/nav2"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="Share"
+        />
+        <item
+                android:id="@+id/nav3"
+                android:icon="@android:drawable/ic_menu_send"
+                android:title="Send"
+        />
+        <item
+                android:id="@+id/nav4"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="Contact Us"
+        />
+    </group>
+</menu>
