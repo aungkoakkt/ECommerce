@@ -27,4 +27,10 @@ interface ProductDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveCategoryAndProduct(list: List<CategoryProduct>)
+
+    @Query("update product set isFavorite=:status where product_id=:productId")
+    fun updateFavoriteForProduct(productId: Int, status: Int)
+
+    @Query("select * from product where isFavorite=1")
+    fun retrieveFavoriteProducts(): List<ProductVO>
 }

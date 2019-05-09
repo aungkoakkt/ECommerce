@@ -4,18 +4,17 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
 import com.akkt.ecommerce.R
-import com.akkt.ecommerce.data.models.UserModel
-import com.akkt.ecommerce.data.models.UserModelImpl
-import com.akkt.ecommerce.delegates.RegisterDelegate
+import com.akkt.ecommerce.mvp.presenters.IRegisterPresenter
+import com.akkt.ecommerce.mvp.presenters.RegisterPresenter
+import com.akkt.ecommerce.mvp.views.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
-class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.OnDateSetListener, View.OnClickListener {
+class RegisterActivity : BaseActivity(),RegisterView, DatePickerDialog.OnDateSetListener, View.OnClickListener {
 
     private val calender = Calendar.getInstance()
     private val mYear = calender.get(Calendar.YEAR)
@@ -25,10 +24,10 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
     lateinit var mDatePicker: DatePickerDialog
     lateinit var mBirthday: String
 
-    private val mUserModel: UserModel
+    private val mRegisterPresenter:IRegisterPresenter
 
     init {
-        mUserModel = UserModelImpl
+        mRegisterPresenter=RegisterPresenter(this)
     }
 
     companion object {
@@ -41,6 +40,7 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        mRegisterPresenter.onCreate()
 
         mDatePicker = DatePickerDialog(this, this, mYear, mMonth, mDay)
 
@@ -51,16 +51,15 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
         etActivityRegisterDate.setText(mBirthday)
 
         etActivityRegisterDate.setOnClickListener(this)
-        ivActivityRegisterBack.setOnClickListener { finish() }
+        ivActivityRegisterBack.setOnClickListener { mRegisterPresenter.onTapBackButton() }
 
         btnActivityRegister.setOnClickListener {
-            mUserModel.register(etActivityRegisterName.toString(),
+            mRegisterPresenter.onTapRegisterButton(etActivityRegisterName.toString(),
                 etActivityRegisterPassword.toString(),
                 etActivityRegisterPhone.toString(),
                 etActivityRegisterDate.toString(),
-                etActivityRegisterLocation.toString(),this)
+                etActivityRegisterLocation.toString())
         }
-
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -77,12 +76,16 @@ class RegisterActivity : AppCompatActivity(),RegisterDelegate, DatePickerDialog.
         }
     }
 
-    override fun success(message: String) {
+    override fun displayFailMessage(message: String) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()
-        finish()
     }
 
-    override fun onFail(message: String) {
+    override fun displaySuccessMessage(message: String) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        finishActivity()
+    }
+
+    override fun finishActivity() {
+        finish()
     }
 }

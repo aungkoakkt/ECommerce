@@ -45,13 +45,24 @@
                     android:layout_alignParentBottom="true"/>
 
             <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/ivItemProductFavourite"
+                    android:id="@+id/ivItemProductNotFavourite"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="@dimen/margin_medium"
+                    android:visibility="gone"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     app:srcCompat="@drawable/ic_favorite"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/ivItemProductFavourite"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:visibility="gone"
+                    android:padding="@dimen/margin_medium"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    app:srcCompat="@drawable/ic_favorite_pink"/>
         </RelativeLayout>
     </RelativeLayout>
 </android.support.design.card.MaterialCardView>

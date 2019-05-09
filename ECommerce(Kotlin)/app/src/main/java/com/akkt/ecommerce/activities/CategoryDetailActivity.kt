@@ -2,29 +2,26 @@ package com.akkt.ecommerce.activities
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.adapters.ProductRecyclerAdapter
-import com.akkt.ecommerce.data.models.ProductModel
-import com.akkt.ecommerce.data.models.ProductModelImpl
 import com.akkt.ecommerce.data.vos.ProductVO
-import com.akkt.ecommerce.delegates.ProductDelegate
-import com.akkt.ecommerce.delegates.ProductItemDelegate
+import com.akkt.ecommerce.mvp.presenters.CategoryDetailPresenter
+import com.akkt.ecommerce.mvp.presenters.ICategoryDetailPresenter
+import com.akkt.ecommerce.mvp.views.CategoryDetailView
 import kotlinx.android.synthetic.main.activity_category_detail.*
 
-class CategoryDetailActivity : AppCompatActivity(),ProductDelegate,ProductItemDelegate {
+class CategoryDetailActivity : BaseActivity(), CategoryDetailView {
 
-    private val mProductModel: ProductModel
     private val mAdapter: ProductRecyclerAdapter
+    private val mCategoryDetailPresenter: ICategoryDetailPresenter
 
     init {
-        mProductModel=ProductModelImpl
-        mAdapter= ProductRecyclerAdapter(this)
+        mCategoryDetailPresenter=CategoryDetailPresenter(this)
+        mAdapter = ProductRecyclerAdapter(mCategoryDetailPresenter)
     }
 
     companion object {
@@ -37,34 +34,45 @@ class CategoryDetailActivity : AppCompatActivity(),ProductDelegate,ProductItemDe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_detail)
+        mCategoryDetailPresenter.onCreate()
 
-        rvActivityCategoryDetail.layoutManager=LinearLayoutManager(this,RecyclerView.VERTICAL,false)
-        rvActivityCategoryDetail.adapter=mAdapter
+        rvActivityCategoryDetail.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
+        rvActivityCategoryDetail.adapter = mAdapter
 
         val intent = intent
         val categoryId = intent.getIntExtra("id", 0)
         val categoryName = intent.getStringExtra("name")
-
-
         tvActivityCategoryDetailName.text = categoryName
-        mProductModel.getProductListByCategoryId(categoryId,this)
+
+        mCategoryDetailPresenter.onUIReady(categoryId)
     }
 
-    override fun getProductList(productlist: List<ProductVO>) {
-        mAdapter.setNewData(productlist as MutableList<ProductVO>)
+    override fun onStart() {
+        super.onStart()
+        mCategoryDetailPresenter.onStart()
     }
 
-    override fun onFail(message: String) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+    override fun onStop() {
+        super.onStop()
+        mCategoryDetailPresenter.onStop()
     }
 
-    override fun onTapProduct(product: ProductVO) {
+    override fun onDestroy() {
+        super.onDestroy()
+        mCategoryDetailPresenter.onDestroy()
+    }
+
+    override fun displayProduct(productList: List<ProductVO>) {
+        mAdapter.setNewData(productList as MutableList<ProductVO>)
+    }
+
+    override fun displayFailToGetProductMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun navigateToProductDetailScreen(productId: Int) {
         val intent = ProductDetailActivity.newIntent(this)
-        intent.putExtra("product_id", product.productId)
+        intent.putExtra("product_id", productId)
         startActivity(intent)
-    }
-
-    override fun onTapFavorite(product: ProductVO) {
-
     }
 }

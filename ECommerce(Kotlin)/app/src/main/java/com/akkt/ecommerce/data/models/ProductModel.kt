@@ -13,5 +13,4 @@ interface ProductModel {
     fun getProductList(accessToken: String, page: Int, productDelegate: ProductDelegate)
     fun getProductListByCategoryId(categoryId: Int, productDelegate: ProductDelegate)
     fun getProductDetail(productId: Int, delegate: ProductDetailDelegate)
-    fun addToHistory(productId: Int)
 }

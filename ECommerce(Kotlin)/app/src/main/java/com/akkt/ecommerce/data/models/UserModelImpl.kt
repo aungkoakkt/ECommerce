@@ -41,7 +41,6 @@ object UserModelImpl : BaseModel(), UserModel {
 
             override fun onSuccess(loginUser: GetLoginUserResponse) {
                 mDatabase.loginUserDao().saveLoginUser(loginUser.loginUser)
-                mDatabase.favouriteDao().addFavouriteList(loginUser.favouriteList)
                 CommonLogMessage.debugMessage(loginUser.favouriteList.size.toString())
                 loginDelegate.onSuccess(loginUser)
 

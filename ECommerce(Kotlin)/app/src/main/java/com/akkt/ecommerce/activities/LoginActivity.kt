@@ -2,23 +2,21 @@ package com.akkt.ecommerce.activities
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.akkt.ecommerce.R
-import com.akkt.ecommerce.data.models.UserModel
-import com.akkt.ecommerce.data.models.UserModelImpl
-import com.akkt.ecommerce.data.vos.LoginUserVO
-import com.akkt.ecommerce.delegates.LoginDelegate
-import com.akkt.ecommerce.network.responses.GetLoginUserResponse
+import com.akkt.ecommerce.mvp.presenters.ILoginPresenter
+import com.akkt.ecommerce.mvp.presenters.LoginPresenter
+import com.akkt.ecommerce.mvp.views.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity(), LoginDelegate {
 
-    private val mUserModel: UserModel
+class LoginActivity : BaseActivity(),LoginView {
+
+    private val mLoginPresenter:ILoginPresenter
 
     init {
-        mUserModel = UserModelImpl
+        mLoginPresenter=LoginPresenter(this)
     }
 
     companion object {
@@ -28,23 +26,43 @@ class LoginActivity : AppCompatActivity(), LoginDelegate {
         }
     }
 
-    override fun onSuccess(loginUser: GetLoginUserResponse) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        mLoginPresenter.onCreate()
+
+        tvActivityLoginRegister.setOnClickListener { mLoginPresenter.onTapRegisterText() }
+
+        btnActivityLogin.setOnClickListener {
+            mLoginPresenter.onTapLoginButton(etActivityLoginPhone.toString(), etActivityLoginPassword.toString())
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mLoginPresenter.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mLoginPresenter.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mLoginPresenter.onDestroy()
+    }
+
+    override fun navigateToMain() {
         startActivity(MainActivity.newIntent(this))
         finish()
     }
 
-    override fun onFail(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    override fun navigateToRegister() {
+        startActivity(RegisterActivity.newIntent(this))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        tvActivityLoginRegister.setOnClickListener { startActivity(RegisterActivity.newIntent(this)) }
-
-        btnActivityLogin.setOnClickListener {
-            mUserModel.login(etActivityLoginPhone.toString(), etActivityLoginPassword.toString(), this)
-        }
+    override fun displayFailToLoginMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

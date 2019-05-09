@@ -2,6 +2,7 @@ package com.akkt.ecommerce
 
 import android.app.Application
 import com.akkt.ecommerce.data.models.FavoriteModelImpl
+import com.akkt.ecommerce.data.models.HistoryModelImpl
 import com.akkt.ecommerce.data.models.ProductModelImpl
 import com.akkt.ecommerce.data.models.UserModelImpl
 
@@ -19,5 +20,6 @@ class EcommerceApp : Application() {
         UserModelImpl.initDB(applicationContext)
         ProductModelImpl.initDB(applicationContext)
         FavoriteModelImpl.initDB(applicationContext)
+        HistoryModelImpl.initDB(applicationContext)
     }
 }

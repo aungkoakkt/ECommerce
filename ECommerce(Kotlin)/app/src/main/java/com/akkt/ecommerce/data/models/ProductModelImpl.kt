@@ -88,7 +88,4 @@ object ProductModelImpl : BaseModel(), ProductModel {
         delegate.getProductDetail(product)
     }
 
-    override fun addToHistory(productId: Int) {
-        mDatabase.historyDao().addHistory(History(productId = productId))
-    }
 }

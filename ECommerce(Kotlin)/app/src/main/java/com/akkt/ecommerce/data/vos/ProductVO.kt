@@ -48,5 +48,8 @@ data class ProductVO(
 
     @Embedded(prefix = "seller")
     @SerializedName("seller")
-    val seller: SellerVO
+    val seller: SellerVO,
+
+    @ColumnInfo(name = "isFavorite")
+    val isFavorite: Int=0
 )

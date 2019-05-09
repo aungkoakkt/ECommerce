@@ -1,6 +1,5 @@
 package com.akkt.ecommerce.fragments
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -10,39 +9,41 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.activities.CategoryDetailActivity
 import com.akkt.ecommerce.activities.ProductDetailActivity
 import com.akkt.ecommerce.adapters.CategoryRecyclerAdapter
 import com.akkt.ecommerce.adapters.ProductRecyclerAdapter
-import com.akkt.ecommerce.data.models.FavoriteModel
-import com.akkt.ecommerce.data.models.FavoriteModelImpl
-import com.akkt.ecommerce.data.models.ProductModel
-import com.akkt.ecommerce.data.models.ProductModelImpl
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
-import com.akkt.ecommerce.delegates.CategoryDelegate
-import com.akkt.ecommerce.delegates.CategoryItemDelegate
-import com.akkt.ecommerce.delegates.ProductDelegate
-import com.akkt.ecommerce.delegates.ProductItemDelegate
-import com.akkt.ecommerce.network.ECommerceDataAgent
+import com.akkt.ecommerce.mvp.presenters.HomePresenter
+import com.akkt.ecommerce.mvp.presenters.IHomePresenter
+import com.akkt.ecommerce.mvp.views.HomeView
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment(), ProductItemDelegate, CategoryItemDelegate {
+class HomeFragment : Fragment(), HomeView {
 
-    private val mCategoryAdapter: CategoryRecyclerAdapter = CategoryRecyclerAdapter(this)
-    private val mProductAdapter: ProductRecyclerAdapter = ProductRecyclerAdapter(this)
+    private val mCategoryAdapter: CategoryRecyclerAdapter
+    private val mProductAdapter: ProductRecyclerAdapter
 
-    private val mProductModel: ProductModel
-    private val mFavoriteModel: FavoriteModel
+    private val mHomePresenter: IHomePresenter
 
     init {
-        mProductModel = ProductModelImpl
-        mFavoriteModel = FavoriteModelImpl
+        mHomePresenter = HomePresenter(this)
+        mProductAdapter = ProductRecyclerAdapter(mHomePresenter)
+        mCategoryAdapter = CategoryRecyclerAdapter(mHomePresenter)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mHomePresenter.onCreate()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -56,48 +57,51 @@ class HomeFragment : Fragment(), ProductItemDelegate, CategoryItemDelegate {
         rvFragmentHomeCategories.adapter = mCategoryAdapter
         rvFragmentHomeProducts.adapter = mProductAdapter
 
-        mProductModel.getCategoryList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : CategoryDelegate {
-            override fun getCategoryList(category: List<CategoryVO>) {
-                mCategoryAdapter.setNewData(category as MutableList<CategoryVO>)
-            }
-
-            override fun onFail(message: String) {
-                Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
-            }
-
-        })
-
-        mProductModel.getProductList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : ProductDelegate {
-            override fun onFail(message: String) {
-                Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
-            }
-
-            override fun getProductList(productlist: List<ProductVO>) {
-                mProductAdapter.setNewData(productlist as MutableList<ProductVO>)
-            }
-
-        })
+        mHomePresenter.onUIReady()
     }
 
-    override fun onTapProduct(product: ProductVO) {
+    override fun onStart() {
+        super.onStart()
+        mHomePresenter.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mHomePresenter.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHomePresenter.onDestroy()
+    }
+
+    override fun displayCategory(categoryList: List<CategoryVO>) {
+        mCategoryAdapter.setNewData(categoryList as MutableList<CategoryVO>)
+    }
+
+    override fun displayProduct(productList: List<ProductVO>) {
+        mProductAdapter.setNewData(productList as MutableList<ProductVO>)
+    }
+
+    override fun displayFailMessageForCategory(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun displayFailMessageForProduct(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun navigateToProductDetail(productId: Int) {
         val intent = ProductDetailActivity.newIntent(context!!)
-        intent.putExtra("product_id", product.productId)
+        intent.putExtra("product_id", productId)
         startActivity(intent)
     }
 
-    override fun onTapFavorite(product: ProductVO) {
-        val id = mFavoriteModel.addToFavorite(product)
-        if (id > 0) {
-            Toast.makeText(context, "Added to favorite list", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(context, "Already added.", Toast.LENGTH_LONG).show()
-        }
-    }
-
-    override fun onTapCategoryItem(category: CategoryVO) {
+    override fun navigateToCategoryDetail(categoryId: Int, categoryName: String) {
         val intent = CategoryDetailActivity.newIntent(context!!)
-        intent.putExtra("id", category.categoryId)
-        intent.putExtra("name", category.categoryName)
+        intent.putExtra("id", categoryId)
+        intent.putExtra("name", categoryName)
         startActivity(intent)
     }
+
 }

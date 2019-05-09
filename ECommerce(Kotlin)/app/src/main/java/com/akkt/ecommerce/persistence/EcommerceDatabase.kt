@@ -13,29 +13,28 @@ import com.akkt.ecommerce.persistence.dao.*
 import com.akkt.ecommerce.persistence.entities.CategoryProduct
 import com.akkt.ecommerce.persistence.entities.History
 import com.akkt.ecommerce.persistence.typeconverters.CategoryListConverter
+import com.akkt.ecommerce.persistence.typeconverters.DateConverter
 import com.akkt.ecommerce.persistence.typeconverters.ProductImageUrlListConverter
 
 /**
  *Created by Aung Ko Ko Thet on 4/25/19
  */
 @Database(
-    entities = arrayOf(
+    entities = [
         LoginUserVO::class,
         ProductVO::class,
         CategoryVO::class,
         CategoryProduct::class,
-        FavoriteVO::class,
         History::class
-    ), version = 3, exportSchema = false
+        ], version = 3, exportSchema = false
 )
-@TypeConverters(CategoryListConverter::class, ProductImageUrlListConverter::class)
+@TypeConverters(CategoryListConverter::class, ProductImageUrlListConverter::class, DateConverter::class)
 abstract class EcommerceDatabase : RoomDatabase() {
 
     abstract fun loginUserDao(): LoginUserDao
     abstract fun productDao(): ProductDao
     abstract fun categoryDao(): CategoryDao
     abstract fun historyDao(): HistoryDao
-    abstract fun favouriteDao(): FavouriteDao
 
     companion object {
 

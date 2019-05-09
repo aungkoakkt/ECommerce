@@ -6,4 +6,6 @@
 
     <color name="yellow">#C99E29</color>
     <color name="full_white">#FFFFFF</color>
+    <color name="grey">#EEEEEE</color>
+    <color name="black">#000000</color>
 </resources>

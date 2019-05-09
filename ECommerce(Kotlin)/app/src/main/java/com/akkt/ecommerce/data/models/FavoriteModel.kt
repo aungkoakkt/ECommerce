@@ -1,6 +1,5 @@
 package com.akkt.ecommerce.data.models
 
-import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.FavoriteDelegate
 
 /**
@@ -8,6 +7,7 @@ import com.akkt.ecommerce.delegates.FavoriteDelegate
  */
 interface FavoriteModel {
 
-    fun getFavoriteProduct(delegate :FavoriteDelegate)
-    fun addToFavorite(product:ProductVO):Long
+    fun getFavoriteProduct(delegate: FavoriteDelegate)
+    fun addToFavorite(productId: Int)
+    fun removeFromFavorite(productId: Int)
 }

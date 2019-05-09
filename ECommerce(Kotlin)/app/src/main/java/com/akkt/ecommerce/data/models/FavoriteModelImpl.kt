@@ -1,7 +1,5 @@
 package com.akkt.ecommerce.data.models
 
-import com.akkt.ecommerce.data.vos.FavoriteVO
-import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.FavoriteDelegate
 
 /**
@@ -9,22 +7,8 @@ import com.akkt.ecommerce.delegates.FavoriteDelegate
  */
 object FavoriteModelImpl : BaseModel(), FavoriteModel {
 
-    override fun addToFavorite(product: ProductVO): Long {
-
-        val favoriteProduct = FavoriteVO(
-            productId = product.productId,
-            productName = product.productName,
-            productPrice = product.productPrice,
-            productImageUrls = product.productImageUrl
-        )
-
-        val id=mDatabase.favouriteDao().addFavoriteProduct(favoriteProduct)
-
-        return id
-    }
-
     override fun getFavoriteProduct(delegate: FavoriteDelegate) {
-        val favoriteProducts = mDatabase.favouriteDao().retrieveFavoriteProducts()
+        val favoriteProducts = mDatabase.productDao().retrieveFavoriteProducts()
         if (favoriteProducts.isEmpty()) {
             delegate.onFailGettingFavoriteProduct("There is no favorite product")
         } else {
@@ -32,4 +16,11 @@ object FavoriteModelImpl : BaseModel(), FavoriteModel {
         }
     }
 
+    override fun addToFavorite(productId: Int) {
+        mDatabase.productDao().updateFavoriteForProduct(productId,1)
+    }
+
+    override fun removeFromFavorite(productId: Int) {
+        mDatabase.productDao().updateFavoriteForProduct(productId,0)
+    }
 }

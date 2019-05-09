@@ -16,9 +16,26 @@ class ProductViewHolder(itemView: View, private val delegate: ProductItemDelegat
         itemView.tvItemProductName.text=data.productName
         itemView.tvItemProductPrice.text=data.productPrice
 
+        if (data.isFavorite!=0){
+            itemView.ivItemProductFavourite.visibility=View.VISIBLE
+            itemView.ivItemProductNotFavourite.visibility=View.GONE
+        }else{
+            itemView.ivItemProductFavourite.visibility=View.GONE
+            itemView.ivItemProductNotFavourite.visibility=View.VISIBLE
+        }
+
         itemView.setOnClickListener {  delegate.onTapProduct(data)}
 
-        itemView.ivItemProductFavourite.setOnClickListener{delegate.onTapFavorite(data)}
+        itemView.ivItemProductFavourite.setOnClickListener{
+            itemView.ivItemProductFavourite.visibility=View.GONE
+            itemView.ivItemProductNotFavourite.visibility=View.VISIBLE
+            delegate.onTapFavorite(data.productId)
+        }
 
+        itemView.ivItemProductNotFavourite.setOnClickListener{
+            itemView.ivItemProductFavourite.visibility=View.VISIBLE
+            itemView.ivItemProductNotFavourite.visibility=View.GONE
+            delegate.onTapNotFavorite(data.productId)
+        }
     }
 }
