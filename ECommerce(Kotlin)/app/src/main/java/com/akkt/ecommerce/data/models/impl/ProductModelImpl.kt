@@ -1,19 +1,21 @@
-package com.akkt.ecommerce.data.models
+package com.akkt.ecommerce.data.models.impl
 
+import com.akkt.ecommerce.data.models.ProductModel
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.CategoryDelegate
 import com.akkt.ecommerce.delegates.ProductDelegate
 import com.akkt.ecommerce.delegates.ProductDetailDelegate
 import com.akkt.ecommerce.persistence.entities.CategoryProduct
-import com.akkt.ecommerce.persistence.entities.History
 
 /**
  *Created by Aung Ko Ko Thet on 4/26/19
  */
 object ProductModelImpl : BaseModel(), ProductModel {
 
-    override fun getCategoryList(accessToken: String, page: Int, categoryDelegate: CategoryDelegate) {
+    override fun getCategoryList(accessToken: String, page: Int, categoryDelegate: CategoryDelegate): List<CategoryVO> {
+
+        val categoryList = mDatabase.categoryDao().retrieveCategoryList()
 
         mDataAgent.loadCategoryList(accessToken, page, object : CategoryDelegate {
             override fun getCategoryList(category: List<CategoryVO>) {
@@ -33,9 +35,13 @@ object ProductModelImpl : BaseModel(), ProductModel {
             }
 
         })
+
+        return categoryList
     }
 
-    override fun getProductList(accessToken: String, page: Int, productDelegate: ProductDelegate) {
+    override fun getProductList(accessToken: String, page: Int, productDelegate: ProductDelegate): List<ProductVO> {
+
+        val productList = mDatabase.productDao().retrieveProductList()
 
         mDataAgent.loadProductList(accessToken, page, object : ProductDelegate {
 
@@ -69,6 +75,8 @@ object ProductModelImpl : BaseModel(), ProductModel {
             }
 
         })
+
+        return productList
     }
 
     override fun getProductListByCategoryId(categoryId: Int, productDelegate: ProductDelegate) {

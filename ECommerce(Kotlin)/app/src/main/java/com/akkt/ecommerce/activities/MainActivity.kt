@@ -12,18 +12,14 @@ import com.akkt.ecommerce.fragments.BottomNavigationDrawerFragment
 import com.akkt.ecommerce.fragments.HomeFragment
 import com.akkt.ecommerce.fragments.ProfileFragment
 import com.akkt.ecommerce.mvp.presenters.IMainPresenter
-import com.akkt.ecommerce.mvp.presenters.MainPresenter
+import com.akkt.ecommerce.mvp.presenters.impl.MainPresenter
 import com.akkt.ecommerce.mvp.views.MainView
 import com.akkt.ecommerce.utils.CommonLogMessage
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainView {
 
-    private val mMainPresenter: IMainPresenter
-
-    init {
-        mMainPresenter = MainPresenter(this)
-    }
+    private val mMainPresenter: IMainPresenter = MainPresenter(this)
 
     companion object {
         fun newIntent(context: Context): Intent {

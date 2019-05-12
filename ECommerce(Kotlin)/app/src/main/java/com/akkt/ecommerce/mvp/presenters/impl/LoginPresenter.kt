@@ -1,6 +1,7 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.delegates.LoginDelegate
+import com.akkt.ecommerce.mvp.presenters.ILoginPresenter
 import com.akkt.ecommerce.mvp.views.LoginView
 import com.akkt.ecommerce.network.responses.GetLoginUserResponse
 
@@ -11,7 +12,7 @@ class LoginPresenter(val mLoginView: LoginView) : BasePresenter(), ILoginPresent
 
     override fun onTapLoginButton(phone: String, password: String) {
 
-        mUserModel.login(phone,password, object : LoginDelegate {
+        mUserModel.login(phone, password, object : LoginDelegate {
             override fun onSuccess(loginUser: GetLoginUserResponse) {
                 mLoginView.navigateToMain()
             }

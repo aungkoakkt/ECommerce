@@ -1,7 +1,8 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.ProductDelegate
+import com.akkt.ecommerce.mvp.presenters.ICategoryDetailPresenter
 import com.akkt.ecommerce.mvp.views.CategoryDetailView
 
 /**

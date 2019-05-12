@@ -1,20 +1,21 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.CategoryDelegate
 import com.akkt.ecommerce.delegates.ProductDelegate
+import com.akkt.ecommerce.mvp.presenters.IHomePresenter
 import com.akkt.ecommerce.mvp.views.HomeView
 import com.akkt.ecommerce.network.ECommerceDataAgent
 
 /**
  *Created by Aung Ko Ko Thet on 5/8/19
  */
-class HomePresenter (val mHomeView:HomeView):BasePresenter(),IHomePresenter {
+class HomePresenter(val mHomeView: HomeView) : BasePresenter(), IHomePresenter {
 
     override fun onUIReady() {
 
-        mProductModel.getCategoryList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : CategoryDelegate {
+        val categoryList = mProductModel.getCategoryList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : CategoryDelegate {
             override fun getCategoryList(category: List<CategoryVO>) {
                 mHomeView.displayCategory(category)
             }
@@ -25,7 +26,9 @@ class HomePresenter (val mHomeView:HomeView):BasePresenter(),IHomePresenter {
 
         })
 
-        mProductModel.getProductList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : ProductDelegate {
+        mHomeView.displayCategory(categoryList)
+
+        val productList = mProductModel.getProductList(ECommerceDataAgent.ACCESS_TOKEN, 1, object : ProductDelegate {
             override fun onFail(message: String) {
                 mHomeView.displayFailMessageForProduct(message)
             }
@@ -34,10 +37,12 @@ class HomePresenter (val mHomeView:HomeView):BasePresenter(),IHomePresenter {
                 mHomeView.displayProduct(productlist)
             }
         })
+
+        mHomeView.displayProduct(productList)
     }
 
     override fun onTapCategoryItem(category: CategoryVO) {
-        mHomeView.navigateToCategoryDetail(category.categoryId,category.categoryName)
+        mHomeView.navigateToCategoryDetail(category.categoryId, category.categoryName)
     }
 
     override fun onTapProduct(product: ProductVO) {

@@ -1,11 +1,13 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
+import com.akkt.ecommerce.mvp.presenters.IMainPresenter
 import com.akkt.ecommerce.mvp.views.MainView
 
 /**
  *Created by Aung Ko Ko Thet on 5/9/19
  */
-class MainPresenter(private val mMainView: MainView) :BasePresenter(),IMainPresenter {
+class MainPresenter(private val mMainView: MainView) : BasePresenter(),
+    IMainPresenter {
 
     override fun onUIReady() {
         val flag=mUserModel.isUserLogin()

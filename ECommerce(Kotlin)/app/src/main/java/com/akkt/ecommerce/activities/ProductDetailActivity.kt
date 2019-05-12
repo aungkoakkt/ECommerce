@@ -7,18 +7,15 @@ import android.text.method.ScrollingMovementMethod
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.mvp.presenters.IProductDetailPresenter
-import com.akkt.ecommerce.mvp.presenters.ProductDetailPresenter
+import com.akkt.ecommerce.mvp.presenters.impl.ProductDetailPresenter
 import com.akkt.ecommerce.mvp.views.ProductDetailView
+import com.akkt.ecommerce.utils.Constants
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_product_detail.*
 
 class ProductDetailActivity : BaseActivity(), ProductDetailView {
 
-    private val mProductDetailPresenter: IProductDetailPresenter
-
-    init {
-        mProductDetailPresenter = ProductDetailPresenter(this)
-    }
+    private val mProductDetailPresenter: IProductDetailPresenter = ProductDetailPresenter(this)
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -34,7 +31,7 @@ class ProductDetailActivity : BaseActivity(), ProductDetailView {
 
         tvActivityProductDetailDescription.movementMethod = ScrollingMovementMethod()
         val intent = intent
-        val productId = intent.getIntExtra("product_id", 0)
+        val productId = intent.getIntExtra(Constants.PRODUCT_ID, 0)
 
         mProductDetailPresenter.onUIReady(productId)
 

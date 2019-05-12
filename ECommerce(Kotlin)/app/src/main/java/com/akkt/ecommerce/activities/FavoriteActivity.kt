@@ -9,20 +9,17 @@ import android.widget.Toast
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.adapters.FavoriteRecyclerAdapter
 import com.akkt.ecommerce.data.vos.ProductVO
-import com.akkt.ecommerce.mvp.presenters.FavoritePresenter
+import com.akkt.ecommerce.mvp.presenters.impl.FavoritePresenter
 import com.akkt.ecommerce.mvp.presenters.IFavoritePresenter
 import com.akkt.ecommerce.mvp.views.FavoriteView
+import com.akkt.ecommerce.utils.Constants
+import com.bumptech.glide.Glide.init
 import kotlinx.android.synthetic.main.activity_favorite.*
 
 class FavoriteActivity : BaseActivity(), FavoriteView {
 
-    private val mFavoriteAdapter: FavoriteRecyclerAdapter
-    private val mFavoritePresenter: IFavoritePresenter
-
-    init {
-        mFavoritePresenter = FavoritePresenter(this)
-        mFavoriteAdapter = FavoriteRecyclerAdapter(mFavoritePresenter)
-    }
+    private val mFavoritePresenter: IFavoritePresenter = FavoritePresenter(this)
+    private val mFavoriteAdapter = FavoriteRecyclerAdapter(mFavoritePresenter)
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -69,7 +66,7 @@ class FavoriteActivity : BaseActivity(), FavoriteView {
 
     override fun navigateToProductDetail(productId: Int) {
         val intent = ProductDetailActivity.newIntent(this)
-        intent.putExtra("product_id", productId)
+        intent.putExtra(Constants.PRODUCT_ID, productId)
         startActivity(intent)
     }
 }

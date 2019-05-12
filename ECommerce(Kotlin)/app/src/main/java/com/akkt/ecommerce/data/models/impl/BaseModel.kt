@@ -1,4 +1,4 @@
-package com.akkt.ecommerce.data.models
+package com.akkt.ecommerce.data.models.impl
 
 import android.content.Context
 import com.akkt.ecommerce.network.ECommerceDA

@@ -6,18 +6,14 @@ import android.os.Bundle
 import android.widget.Toast
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.mvp.presenters.ILoginPresenter
-import com.akkt.ecommerce.mvp.presenters.LoginPresenter
+import com.akkt.ecommerce.mvp.presenters.impl.LoginPresenter
 import com.akkt.ecommerce.mvp.views.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 
 
-class LoginActivity : BaseActivity(),LoginView {
+class LoginActivity : BaseActivity(), LoginView {
 
-    private val mLoginPresenter:ILoginPresenter
-
-    init {
-        mLoginPresenter=LoginPresenter(this)
-    }
+    private val mLoginPresenter: ILoginPresenter = LoginPresenter(this)
 
     companion object {
         fun newIntent(context: Context): Intent {

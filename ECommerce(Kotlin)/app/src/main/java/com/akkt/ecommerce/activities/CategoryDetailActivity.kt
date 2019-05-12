@@ -9,20 +9,16 @@ import android.widget.Toast
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.adapters.ProductRecyclerAdapter
 import com.akkt.ecommerce.data.vos.ProductVO
-import com.akkt.ecommerce.mvp.presenters.CategoryDetailPresenter
 import com.akkt.ecommerce.mvp.presenters.ICategoryDetailPresenter
+import com.akkt.ecommerce.mvp.presenters.impl.CategoryDetailPresenter
 import com.akkt.ecommerce.mvp.views.CategoryDetailView
+import com.akkt.ecommerce.utils.Constants
 import kotlinx.android.synthetic.main.activity_category_detail.*
 
 class CategoryDetailActivity : BaseActivity(), CategoryDetailView {
 
-    private val mAdapter: ProductRecyclerAdapter
-    private val mCategoryDetailPresenter: ICategoryDetailPresenter
-
-    init {
-        mCategoryDetailPresenter=CategoryDetailPresenter(this)
-        mAdapter = ProductRecyclerAdapter(mCategoryDetailPresenter)
-    }
+    private val mCategoryDetailPresenter: ICategoryDetailPresenter = CategoryDetailPresenter(this)
+    private val mAdapter= ProductRecyclerAdapter(mCategoryDetailPresenter)
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -40,8 +36,8 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailView {
         rvActivityCategoryDetail.adapter = mAdapter
 
         val intent = intent
-        val categoryId = intent.getIntExtra("id", 0)
-        val categoryName = intent.getStringExtra("name")
+        val categoryId = intent.getIntExtra(Constants.CATEGORY_ID, 0)
+        val categoryName = intent.getStringExtra(Constants.CATEGORY_NAME)
         tvActivityCategoryDetailName.text = categoryName
 
         mCategoryDetailPresenter.onUIReady(categoryId)
@@ -72,7 +68,7 @@ class CategoryDetailActivity : BaseActivity(), CategoryDetailView {
 
     override fun navigateToProductDetailScreen(productId: Int) {
         val intent = ProductDetailActivity.newIntent(this)
-        intent.putExtra("product_id", productId)
+        intent.putExtra(Constants.PRODUCT_ID, productId)
         startActivity(intent)
     }
 }

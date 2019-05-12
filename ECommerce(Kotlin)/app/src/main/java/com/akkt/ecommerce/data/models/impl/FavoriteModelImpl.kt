@@ -1,5 +1,6 @@
-package com.akkt.ecommerce.data.models
+package com.akkt.ecommerce.data.models.impl
 
+import com.akkt.ecommerce.data.models.FavoriteModel
 import com.akkt.ecommerce.delegates.FavoriteDelegate
 
 /**

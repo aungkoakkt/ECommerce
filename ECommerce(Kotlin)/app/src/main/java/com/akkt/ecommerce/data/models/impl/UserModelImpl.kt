@@ -1,5 +1,6 @@
-package com.akkt.ecommerce.data.models
+package com.akkt.ecommerce.data.models.impl
 
+import com.akkt.ecommerce.data.models.UserModel
 import com.akkt.ecommerce.data.vos.LoginUserVO
 import com.akkt.ecommerce.delegates.LoginDelegate
 import com.akkt.ecommerce.delegates.RegisterDelegate

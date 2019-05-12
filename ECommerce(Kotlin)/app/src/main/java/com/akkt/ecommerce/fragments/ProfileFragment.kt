@@ -14,20 +14,16 @@ import com.akkt.ecommerce.adapters.HistoryRecyclerAdapter
 import com.akkt.ecommerce.data.vos.LoginUserVO
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.mvp.presenters.IProfilePresenter
-import com.akkt.ecommerce.mvp.presenters.ProfilePresenter
+import com.akkt.ecommerce.mvp.presenters.impl.ProfilePresenter
 import com.akkt.ecommerce.mvp.views.ProfileView
+import com.akkt.ecommerce.utils.Constants
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ProfileFragment : Fragment(),ProfileView {
+class ProfileFragment : Fragment(), ProfileView {
 
-    private val mHistoryAdapter: HistoryRecyclerAdapter
-    private val mProfilePresenter:IProfilePresenter
-
-    init {
-        mProfilePresenter=ProfilePresenter(this)
-        mHistoryAdapter = HistoryRecyclerAdapter(mProfilePresenter)
-    }
+    private val mProfilePresenter: IProfilePresenter = ProfilePresenter(this)
+    private val mHistoryAdapter: HistoryRecyclerAdapter = HistoryRecyclerAdapter(mProfilePresenter)
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -43,7 +39,7 @@ class ProfileFragment : Fragment(),ProfileView {
         mProfilePresenter.onCreate()
 
         rvFragmentProfileHistory.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rvFragmentProfileHistory.adapter=mHistoryAdapter
+        rvFragmentProfileHistory.adapter = mHistoryAdapter
 
         mProfilePresenter.onUIReady()
     }
@@ -71,18 +67,18 @@ class ProfileFragment : Fragment(),ProfileView {
     }
 
     override fun displayHistoryList(productList: List<ProductVO>) {
-        val count=productList.size
-        tvFragmentProfileHistory.text="$count History"
+        val count = productList.size
+        tvFragmentProfileHistory.text = "$count History"
         mHistoryAdapter.setNewData(productList as MutableList<ProductVO>)
     }
 
     override fun displayNoHistoryMessage(message: String) {
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun navigateToProductDetail(productId: Int) {
         val intent = ProductDetailActivity.newIntent(context!!)
-        intent.putExtra("product_id", productId)
+        intent.putExtra(Constants.PRODUCT_ID, productId)
         startActivity(intent)
     }
 }

@@ -16,23 +16,17 @@ import com.akkt.ecommerce.adapters.CategoryRecyclerAdapter
 import com.akkt.ecommerce.adapters.ProductRecyclerAdapter
 import com.akkt.ecommerce.data.vos.CategoryVO
 import com.akkt.ecommerce.data.vos.ProductVO
-import com.akkt.ecommerce.mvp.presenters.HomePresenter
+import com.akkt.ecommerce.mvp.presenters.impl.HomePresenter
 import com.akkt.ecommerce.mvp.presenters.IHomePresenter
 import com.akkt.ecommerce.mvp.views.HomeView
+import com.akkt.ecommerce.utils.Constants
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), HomeView {
 
-    private val mCategoryAdapter: CategoryRecyclerAdapter
-    private val mProductAdapter: ProductRecyclerAdapter
-
-    private val mHomePresenter: IHomePresenter
-
-    init {
-        mHomePresenter = HomePresenter(this)
-        mProductAdapter = ProductRecyclerAdapter(mHomePresenter)
-        mCategoryAdapter = CategoryRecyclerAdapter(mHomePresenter)
-    }
+    private val mHomePresenter: IHomePresenter = HomePresenter(this)
+    private val mCategoryAdapter: CategoryRecyclerAdapter = CategoryRecyclerAdapter(mHomePresenter)
+    private val mProductAdapter: ProductRecyclerAdapter = ProductRecyclerAdapter(mHomePresenter)
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -93,14 +87,14 @@ class HomeFragment : Fragment(), HomeView {
 
     override fun navigateToProductDetail(productId: Int) {
         val intent = ProductDetailActivity.newIntent(context!!)
-        intent.putExtra("product_id", productId)
+        intent.putExtra(Constants.PRODUCT_ID, productId)
         startActivity(intent)
     }
 
     override fun navigateToCategoryDetail(categoryId: Int, categoryName: String) {
         val intent = CategoryDetailActivity.newIntent(context!!)
-        intent.putExtra("id", categoryId)
-        intent.putExtra("name", categoryName)
+        intent.putExtra(Constants.CATEGORY_ID, categoryId)
+        intent.putExtra(Constants.CATEGORY_NAME, categoryName)
         startActivity(intent)
     }
 

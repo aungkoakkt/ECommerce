@@ -1,12 +1,13 @@
-package com.akkt.ecommerce.data.models
+package com.akkt.ecommerce.data.models.impl
 
+import com.akkt.ecommerce.data.models.HistoryModel
 import com.akkt.ecommerce.delegates.ProductDelegate
 import com.akkt.ecommerce.persistence.entities.History
 
 /**
  *Created by Aung Ko Ko Thet on 5/7/19
  */
-object HistoryModelImpl :BaseModel(),HistoryModel {
+object HistoryModelImpl : BaseModel(), HistoryModel {
 
     override fun getHistory(productDelegate: ProductDelegate) {
 

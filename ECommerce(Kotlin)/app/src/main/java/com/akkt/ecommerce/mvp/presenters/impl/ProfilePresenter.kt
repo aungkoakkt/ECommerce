@@ -1,17 +1,18 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.ProductDelegate
+import com.akkt.ecommerce.mvp.presenters.IProfilePresenter
 import com.akkt.ecommerce.mvp.views.ProfileView
 
 /**
  *Created by Aung Ko Ko Thet on 5/9/19
  */
-class ProfilePresenter(val mProfileView: ProfileView) :BasePresenter(),IProfilePresenter{
+class ProfilePresenter(val mProfileView: ProfileView) : BasePresenter(), IProfilePresenter {
 
     override fun onUIReady() {
 
-        val userInfo=mUserModel.getUserInformation()
+        val userInfo = mUserModel.getUserInformation()
         mProfileView.displayUserInformation(userInfo)
 
         mHistoryModel.getHistory(object : ProductDelegate {

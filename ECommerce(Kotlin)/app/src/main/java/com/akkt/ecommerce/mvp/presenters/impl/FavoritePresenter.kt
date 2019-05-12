@@ -1,13 +1,14 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.data.vos.ProductVO
 import com.akkt.ecommerce.delegates.FavoriteDelegate
+import com.akkt.ecommerce.mvp.presenters.IFavoritePresenter
 import com.akkt.ecommerce.mvp.views.FavoriteView
 
 /**
  *Created by Aung Ko Ko Thet on 5/9/19
  */
-class FavoritePresenter(val mFavoriteView: FavoriteView):BasePresenter(),IFavoritePresenter {
+class FavoritePresenter(val mFavoriteView: FavoriteView) : BasePresenter(), IFavoritePresenter {
 
     override fun onUIReady() {
 

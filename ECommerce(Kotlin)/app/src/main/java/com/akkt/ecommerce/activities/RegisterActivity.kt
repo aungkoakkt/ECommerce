@@ -9,12 +9,12 @@ import android.widget.DatePicker
 import android.widget.Toast
 import com.akkt.ecommerce.R
 import com.akkt.ecommerce.mvp.presenters.IRegisterPresenter
-import com.akkt.ecommerce.mvp.presenters.RegisterPresenter
+import com.akkt.ecommerce.mvp.presenters.impl.RegisterPresenter
 import com.akkt.ecommerce.mvp.views.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
-class RegisterActivity : BaseActivity(),RegisterView, DatePickerDialog.OnDateSetListener, View.OnClickListener {
+class RegisterActivity : BaseActivity(), RegisterView, DatePickerDialog.OnDateSetListener, View.OnClickListener {
 
     private val calender = Calendar.getInstance()
     private val mYear = calender.get(Calendar.YEAR)
@@ -24,11 +24,7 @@ class RegisterActivity : BaseActivity(),RegisterView, DatePickerDialog.OnDateSet
     lateinit var mDatePicker: DatePickerDialog
     lateinit var mBirthday: String
 
-    private val mRegisterPresenter:IRegisterPresenter
-
-    init {
-        mRegisterPresenter=RegisterPresenter(this)
-    }
+    private val mRegisterPresenter: IRegisterPresenter = RegisterPresenter(this)
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -54,11 +50,13 @@ class RegisterActivity : BaseActivity(),RegisterView, DatePickerDialog.OnDateSet
         ivActivityRegisterBack.setOnClickListener { mRegisterPresenter.onTapBackButton() }
 
         btnActivityRegister.setOnClickListener {
-            mRegisterPresenter.onTapRegisterButton(etActivityRegisterName.toString(),
+            mRegisterPresenter.onTapRegisterButton(
+                etActivityRegisterName.toString(),
                 etActivityRegisterPassword.toString(),
                 etActivityRegisterPhone.toString(),
                 etActivityRegisterDate.toString(),
-                etActivityRegisterLocation.toString())
+                etActivityRegisterLocation.toString()
+            )
         }
     }
 
@@ -77,11 +75,11 @@ class RegisterActivity : BaseActivity(),RegisterView, DatePickerDialog.OnDateSet
     }
 
     override fun displayFailMessage(message: String) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     override fun displaySuccessMessage(message: String) {
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finishActivity()
     }
 

@@ -1,6 +1,7 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.delegates.RegisterDelegate
+import com.akkt.ecommerce.mvp.presenters.IRegisterPresenter
 import com.akkt.ecommerce.mvp.views.RegisterView
 
 /**

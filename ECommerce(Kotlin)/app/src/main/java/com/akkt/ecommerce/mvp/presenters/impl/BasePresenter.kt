@@ -1,6 +1,11 @@
-package com.akkt.ecommerce.mvp.presenters
+package com.akkt.ecommerce.mvp.presenters.impl
 
 import com.akkt.ecommerce.data.models.*
+import com.akkt.ecommerce.data.models.impl.FavoriteModelImpl
+import com.akkt.ecommerce.data.models.impl.HistoryModelImpl
+import com.akkt.ecommerce.data.models.impl.ProductModelImpl
+import com.akkt.ecommerce.data.models.impl.UserModelImpl
+import com.akkt.ecommerce.mvp.presenters.IBasePresenter
 
 /**
  *Created by Aung Ko Ko Thet on 5/8/19

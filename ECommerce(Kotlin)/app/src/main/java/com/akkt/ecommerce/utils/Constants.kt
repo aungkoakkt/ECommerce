@@ -6,4 +6,7 @@ package com.akkt.ecommerce.utils
 object Constants {
 
     const val BASE_URL="http://padcmyanmar.com/padc-3/final-projects/e-commerce/"
+    const val PRODUCT_ID="product_id"
+    const val CATEGORY_ID="category_id"
+    const val CATEGORY_NAME="category_name"
 }
